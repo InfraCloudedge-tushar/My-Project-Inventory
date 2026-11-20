@@ -75,7 +75,7 @@ D. **Three Delivery Strategies Compared**
      1. Click Export Excel (top-right button on any screen, or inside Excel Data & Scenarios). This downloads <project_name>_model.xlsx with 7 worksheets:
       - **Project_Parameters (Editable):** Project name, projectStartDate (YYYY-MM-DD, e.g., 2026-07-01), Farm MWdc, module Wp, modules/container, daily install rate, service level %, site laydown cap, install start day, simulation horizon, Monte Carlo runs.
       - **Supply_Chain_Stages (Editable):** Mean lead days, std dev days, bottleneck probability %, delay days, and unit cost for each of the 5 stages (procurement, ocean, port, drayage, staging).
-      - **Cost_Assumptions (Editable):** Warehouse monthly lease, double-handling $/module, holding %, port free days, demurrage $/container/day, idle crew $/day, direct & warehouse freight $/container.
+      - **Cost_Assumptions (Editable):** Warehouse monthly lease, double-handling (/$/module), holding %, port free days, demurrage (/$/container/day), idle crew (/$/day), direct & warehouse freight (/$/container).
       - **Shipment_Schedule (Editable):** Add, delete, or edit Batch_ID, Release_Day, Containers, Modules, and Priority_Mode.
       - **Simulation_Summary, Daily_Simulation_Curve, and Monthly_Comparison (Generated Outputs):** Automatically exported results for sharing or Excel analysis.
      2. Open the .xlsx file in Microsoft Excel on Windows, edit values in the 4 input sheets (keep the sheet names and Key / Stage_ID column identifiers intact), and save.
