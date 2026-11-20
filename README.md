@@ -23,33 +23,29 @@ Here is an end-to-end explanation of your Solar Energy Farm — Supply Chain & L
 
 2. **End-to-End Model Workflow**
      
-A. **Five-Stage Physical Supply Chain**
-Every shipment wave passes sequentially through 5 stages:
-1. Factory Production & Pre-Ship QC (procurement): Manufacturing, EL flash testing, palletizing, and container loading.
-2. Ocean Freight & Vessel Transit (ocean): Sea transit with weather and blank-sailing variability.
-3. Port Clearance & Customs Hold (port): Terminal dwell, customs documentation/UFLPA inspections, and chassis matching.
-4. Inland Drayage & Linehaul (drayage): Rail intermodal / flatbed trucking to the regional hub or farm.
-5. Site Receiving & Array Staging (staging): Offloading and distribution to tracker rows.
+ A. **Five-Stage Physical Supply Chain**
+ Every shipment wave passes sequentially through 5 stages:
+ 1. Factory Production & Pre-Ship QC (procurement): Manufacturing, EL flash testing, palletizing, and container loading.
+ 2. Ocean Freight & Vessel Transit (ocean): Sea transit with weather and blank-sailing variability.
+ 3. Port Clearance & Customs Hold (port): Terminal dwell, customs documentation/UFLPA inspections, and chassis matching.
+ 4. Inland Drayage & Linehaul (drayage): Rail intermodal / flatbed trucking to the regional hub or farm.
+ 5. Site Receiving & Array Staging (staging): Offloading and distribution to tracker rows.
 
-Each stage has 5 parameters: Mean Lead Time (
-), Standard Deviation (
-), Bottleneck Probability (
-), Bottleneck Delay Impact (
- days), and Unit Cost ($/module).
+ Each stage has 5 parameters: Mean Lead Time (), Standard Deviation (), Bottleneck Probability (), Bottleneck Delay Impact (days), and Unit Cost ($/module).
 
-B. **Buffer-Stock Optimization (Operations Research Model)**
-- Using your target Cycle Service Level (CSL) (e.g., 97.5%,), the model calculates:
-- **Effective Lead Time ():** Sum of each stage's mean lead time plus expected bottleneck delay ().
-- **Combined Lead-Time Variance ():** Combines continuous transit variance () and discrete bottleneck variance ().
-- **Optimal Safety Stock ():** Accounting simultaneously for daily installation variability () and end-to-end supply lead-time variability ().
-- Reorder Point () and Recommended Warehouse Footprint (modules and 40ft containers).
+ B. **Buffer-Stock Optimization (Operations Research Model)**
+ - Using your target Cycle Service Level (CSL) (e.g., 97.5%,), the model calculates:
+ - **Effective Lead Time ():** Sum of each stage's mean lead time plus expected bottleneck delay ().
+ - **Combined Lead-Time Variance ():** Combines continuous transit variance () and discrete bottleneck variance ().
+ - **Optimal Safety Stock ():** Accounting simultaneously for daily installation variability () and end-to-end supply lead-time variability ().
+ - Reorder Point () and Recommended Warehouse Footprint (modules and 40ft containers).
 
-C. **Monte Carlo Stochastic Simulation (40–400 Trials)**
-- Runs hundreds of simulated timelines using a seeded random generator (Common Random Numbers) so all three strategies are tested against the **exact same random vessel delays, customs holds, and daily installation weather swings**.
-- Tracks daily inventory, pipeline WIP, P10 / P50 / P90 confidence bands, stockout days, port demurrage container-days, and aggregates results into **real calendar months (e.g., July 2026, August 2026, September 2026, October 2026, November 2026, December 2026, January 2027)**.
+ C. **Monte Carlo Stochastic Simulation (40–400 Trials)**
+ - Runs hundreds of simulated timelines using a seeded random generator (Common Random Numbers) so all three strategies are tested against the **exact same random vessel delays, customs holds,  and daily installation weather swings**.
+ - Tracks daily inventory, pipeline WIP, P10 / P50 / P90 confidence bands, stockout days, port demurrage container-days, and aggregates results into **real calendar months (e.g., July 2026,August 2026, September 2026, October 2026, November 2026, December 2026, January 2027)**.
 
 D. **Three Delivery Strategies Compared**
-1. **Direct-to-Site (JIT):** Zero warehouse lease or double-handling, but constrained by siteLaydownCapModules. Excess containers wait at the port and incur demurrage; upstream delays immediately cause crew stockouts.
+1. **Direct-to-Site (JIT):** Zero warehouse lease or double-handling, but constrained by siteLaydownCapModules. Excess containers wait at the port and incur demurrage; upstream delays   immediately cause crew stockouts.
 2. **Regional Buffer Warehouse:** Containers clear port immediately into a leased regional hub, eliminating overflow port demurrage and feeding the farm daily to maintain installation continuity.
 3. **Optimized Hybrid Buffer:** Holds only the calculated Safety Stock () in a smaller regional cross-dock while routing steady-state containers directly to site—often delivering the lowest total logistics cost.
 
@@ -74,15 +70,16 @@ D. **Three Delivery Strategies Compared**
 
 4. **How You Can Change the Data**
    You have three ways to change data—all running 100% locally in your browser with no server required:
+   
    **Method 1: Update via Microsoft Excel (.xlsx) — Recommended for Offline Demos**
-   1. Click Export Excel (top-right button on any screen, or inside Excel Data & Scenarios). This downloads <project_name>_model.xlsx with 7 worksheets:
+     1. Click Export Excel (top-right button on any screen, or inside Excel Data & Scenarios). This downloads <project_name>_model.xlsx with 7 worksheets:
       - **Project_Parameters (Editable):** Project name, projectStartDate (YYYY-MM-DD, e.g., 2026-07-01), Farm MWdc, module Wp, modules/container, daily install rate, service level %, site laydown cap, install start day, simulation horizon, Monte Carlo runs.
       - **Supply_Chain_Stages (Editable):** Mean lead days, std dev days, bottleneck probability %, delay days, and unit cost for each of the 5 stages (procurement, ocean, port, drayage, staging).
       - **Cost_Assumptions (Editable):** Warehouse monthly lease, double-handling $/module, holding %, port free days, demurrage $/container/day, idle crew $/day, direct & warehouse freight $/container.
       - **Shipment_Schedule (Editable):** Add, delete, or edit Batch_ID, Release_Day, Containers, Modules, and Priority_Mode.
       - **Simulation_Summary, Daily_Simulation_Curve, and Monthly_Comparison (Generated Outputs):** Automatically exported results for sharing or Excel analysis.
-   2. Open the .xlsx file in Microsoft Excel on Windows, edit values in the 4 input sheets (keep the sheet names and Key / Stage_ID column identifiers intact), and save.
-   3. Click Import Excel in the top bar (or drag-and-drop the file into Excel Data & Scenarios). All KPIs, monthly bars, Monte Carlo trajectories, and cost-benefit tables recalculate immediately.
+     2. Open the .xlsx file in Microsoft Excel on Windows, edit values in the 4 input sheets (keep the sheet names and Key / Stage_ID column identifiers intact), and save.
+     3. Click Import Excel in the top bar (or drag-and-drop the file into Excel Data & Scenarios). All KPIs, monthly bars, Monte Carlo trajectories, and cost-benefit tables recalculate    immediately.
 
    **Method 2: Live Inline Editing in the Dashboard**
    - **Supply Chain Stages:** Click any stage in the pipeline diagram on Supply Chain Overview, or edit all 5 stages together in the table inside Excel Data & Scenarios.
